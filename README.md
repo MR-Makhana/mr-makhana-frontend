@@ -199,3 +199,443 @@ The frontend communicates with the MR Makhana backend through REST APIs.
 🥜 Next.js Frontend
         │
         │ HTTPS / REST
+        ▼
+⚡ FastAPI Backend
+        │
+        ▼
+🐘 PostgreSQL
+```
+
+The frontend can consume backend resources such as:
+
+```text
+📦 Products
+   │
+   ├── Get products
+   ├── Get product details
+   └── Product information
+
+🗂️ Categories
+   │
+   ├── Get categories
+   └── Category information
+```
+
+---
+
+# 🔐 Environment Configuration
+
+Create a local environment file when environment-specific configuration is required:
+
+```text
+.env.local
+```
+
+Example:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+For production, configure the appropriate API URL through the deployment platform's environment-variable settings.
+
+### 🚨 Security
+
+Never commit sensitive environment variables to Git.
+
+```gitignore
+.env
+.env.local
+.env.*.local
+```
+
+Only variables intended for client-side exposure should use the `NEXT_PUBLIC_` prefix.
+
+---
+
+# 🚀 Getting Started
+
+## 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/MR-Makhana/mr-makhana-frontend.git
+```
+
+## 2️⃣ Enter the Project
+
+```bash
+cd mr-makhana-frontend
+```
+
+## 3️⃣ Install Dependencies
+
+This project uses **pnpm**.
+
+```bash
+pnpm install
+```
+
+## 4️⃣ Configure Environment Variables
+
+Create:
+
+```text
+.env.local
+```
+
+Example:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+## 5️⃣ Start Development Server
+
+```bash
+pnpm dev
+```
+
+Open:
+
+```text
+http://localhost:3000
+```
+
+---
+
+# 🏗️ Production Build
+
+Create a production build:
+
+```bash
+pnpm build
+```
+
+Start the production server:
+
+```bash
+pnpm start
+```
+
+---
+
+# 🧹 Code Quality
+
+Before pushing changes:
+
+```bash
+pnpm lint
+```
+
+Recommended development flow:
+
+```text
+👨‍💻 Code
+   ↓
+🧹 Lint
+   ↓
+🧪 Test
+   ↓
+🏗️ Build
+   ↓
+🚀 Deploy
+```
+
+---
+
+# ☁️ Deployment
+
+The frontend is designed for modern cloud deployment and can be deployed through **Vercel**.
+
+```text
+                    👨‍💻 Developer
+                         │
+                         ▼
+                    Git Push
+                         │
+                         ▼
+                    🐙 GitHub
+                         │
+                         ▼
+                    ▲ Vercel
+                         │
+                         ▼
+                    🌐 Production
+                         │
+                         ▼
+                  🥜 MR Makhana
+```
+
+### Deployment Responsibilities
+
+The frontend repository focuses on:
+
+- 🖥️ Application code
+- 🎨 UI/UX
+- 🔌 API integration
+- 🏗️ Frontend build
+- 🚀 Frontend deployment
+
+AWS infrastructure, Terraform, Docker infrastructure, Nginx and monitoring are maintained separately in:
+
+**`mr-makhana-infrastructure`**
+
+---
+
+# 🔗 Project Ecosystem
+
+MR Makhana is organized into separate repositories for cleaner architecture and maintainability.
+
+### 🖥️ Frontend
+
+**`mr-makhana-frontend`**
+
+```text
+Next.js
+React
+TypeScript
+Tailwind CSS
+shadcn/ui
+```
+
+### ⚙️ Backend
+
+**`mr-makhana-backend`**
+
+```text
+Python
+FastAPI
+PostgreSQL
+SQLAlchemy
+Amazon S3
+```
+
+### ☁️ Infrastructure
+
+**`mr-makhana-infrastructure`**
+
+```text
+AWS
+Terraform
+Docker
+Nginx
+CI/CD
+Security
+Monitoring
+```
+
+```text
+          🥜 MR MAKHANA
+                │
+      ┌─────────┼─────────┐
+      │         │         │
+      ▼         ▼         ▼
+   🖥️ UI     ⚙️ API    ☁️ INFRA
+      │         │         │
+   Next.js   FastAPI     AWS
+   React     Python    Terraform
+   TypeScript PostgreSQL Docker
+                        CI/CD
+```
+
+---
+
+# 📊 Project Status
+
+| Component | Status |
+|---|---|
+| 🥜 Premium Storefront | ✅ |
+| 🎨 Modern UI | ✅ |
+| 📱 Responsive Design | ✅ |
+| ▲ Next.js | ✅ |
+| ⚛️ React | ✅ |
+| 🔷 TypeScript | ✅ |
+| 🎨 Tailwind CSS | ✅ |
+| 🧩 shadcn/ui | ✅ |
+| ✨ Animations | ✅ |
+| 🛍️ Product Interface | ✅ |
+| 🗂️ Category Interface | ✅ |
+| 🔌 API Integration | 🚧 |
+| 🔐 Authentication | 🔜 |
+| 🛒 Shopping Cart | 🔜 |
+| ❤️ Wishlist | 🔜 |
+| 📦 Orders | 🔜 |
+| 💳 Payment Integration | 🔜 |
+| 👨‍💼 Admin Dashboard | 🔜 |
+
+---
+
+# 🗺️ Roadmap
+
+## 🟢 Phase 1 — Storefront
+
+- [x] 🥜 Premium storefront
+- [x] 🎨 Modern UI
+- [x] 📱 Responsive design
+- [x] 🛍️ Product presentation
+- [x] 🗂️ Category presentation
+- [x] ✨ Animations
+
+## 🟡 Phase 2 — Shopping Experience
+
+- [ ] 🔎 Product search
+- [ ] 🛒 Shopping cart
+- [ ] ❤️ Wishlist
+- [ ] 👤 User accounts
+- [ ] 🔐 Authentication
+- [ ] 💳 Checkout
+- [ ] 📦 Order tracking
+
+## 🔵 Phase 3 — Customer Experience
+
+- [ ] ⭐ Product reviews
+- [ ] 🔔 Notifications
+- [ ] 📧 Email integration
+- [ ] 🎁 Offers & coupons
+- [ ] 📦 Order history
+- [ ] 👤 Profile management
+
+## 🟣 Phase 4 — Production
+
+- [ ] 🚀 CI/CD
+- [ ] 🧪 Automated testing
+- [ ] 🔐 Security checks
+- [ ] 📊 Performance monitoring
+- [ ] 📈 Analytics
+- [ ] ♻️ Performance optimization
+
+---
+
+# 🧪 Development Workflow
+
+```text
+              👨‍💻 Developer
+                    │
+                    ▼
+               🌿 Feature Branch
+                    │
+                    ▼
+                 💻 Code
+                    │
+                    ▼
+                 🧹 Lint
+                    │
+                    ▼
+                 🧪 Test
+                    │
+                    ▼
+                🔍 Review
+                    │
+                    ▼
+                🔀 Pull Request
+                    │
+                    ▼
+                  🐙 GitHub
+                    │
+                    ▼
+                🚀 Deployment
+```
+
+---
+
+# 🎯 Frontend Goals
+
+The frontend is being built with a focus on:
+
+```text
+🎨 Beautiful UI
+      ↓
+📱 Responsive Experience
+      ↓
+⚡ Fast Performance
+      ↓
+🧩 Reusable Components
+      ↓
+🔷 Type Safety
+      ↓
+🔌 Clean API Integration
+      ↓
+♻️ Maintainable Code
+      ↓
+🚀 Production Readiness
+```
+
+---
+
+# 🌟 Why MR Makhana?
+
+MR Makhana aims to combine:
+
+- 🌰 Premium Makhana products
+- 🎨 Modern digital experience
+- ⚡ Fast web performance
+- 📱 Mobile-first usability
+- ☁️ Cloud-ready architecture
+- 🔐 Secure engineering practices
+- 🚀 Scalable application design
+
+---
+
+# 📚 Related Repository
+
+### ⚙️ Backend
+
+👉 **[mr-makhana-backend](https://github.com/MR-Makhana/mr-makhana-backend)**
+
+### ☁️ Infrastructure
+
+👉 **[mr-makhana-infrastructure](https://github.com/MR-Makhana/mr-makhana-infrastructure)**
+
+---
+
+# 👨‍💻 Author
+
+## Navnit Kumar
+
+**DevOps Engineer | Cloud & DevSecOps Enthusiast**
+
+### 🛠️ Focus Areas
+
+```text
+☁️ AWS
+🐳 Docker
+☸️ Kubernetes
+🏗️ Terraform
+🔄 CI/CD
+🐧 Linux
+🔐 Cloud Security
+🛡️ DevSecOps
+⚙️ Infrastructure Automation
+```
+
+### 🌐 Connect
+
+<p align="center">
+
+<a href="https://github.com/navnitkumar927">
+  <img src="https://img.shields.io/badge/GitHub-Navnit%20Kumar-181717?style=for-the-badge&logo=github" />
+</a>
+
+<a href="https://www.linkedin.com/in/navnit-kumar-0b7475307/">
+  <img src="https://img.shields.io/badge/LinkedIn-Navnit%20Kumar-0A66C2?style=for-the-badge&logo=linkedin" />
+</a>
+
+</p>
+
+---
+
+# 🥜 MR MAKHANA
+
+<p align="center">
+
+### 🌰 Premium Makhana • ⚛️ Next.js • 🔷 TypeScript • 🎨 Tailwind CSS
+
+**Built with ❤️ for a modern e-commerce experience.**
+
+</p>
+
+<p align="center">
+
+🥜 **MR MAKHANA** 🥜
+
+</p>
