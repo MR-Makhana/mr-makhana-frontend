@@ -1,65 +1,203 @@
 # 🥜 MR Makhana
 
-### Premium Makhana E-Commerce Platform
+## Premium Makhana E-Commerce Platform
 
-MR Makhana is a modern full-stack e-commerce platform built for selling premium roasted Makhana products online.
+MR Makhana is a modern full-stack e-commerce platform designed for selling premium roasted Makhana products online.
 
-The project combines a modern Next.js storefront with a FastAPI backend, PostgreSQL database, Amazon S3 image storage, and AWS infrastructure.
+The project combines a modern **Next.js storefront**, **FastAPI REST API**, **PostgreSQL database**, **Amazon S3 object storage**, **AWS EC2 infrastructure**, and **AWS IAM role-based security**.
 
----
-
-## ✨ Features
-
-- 🛍️ Modern premium e-commerce storefront
-- 📱 Responsive design for desktop, tablet, and mobile
-- 📦 Product management
-- 🗂️ Category management
-- 💰 Product pricing and discount pricing
-- 📊 Stock management
-- ⭐ Featured products
-- 🖼️ Product image management
-- ☁️ Amazon S3 image storage
-- 🗄️ PostgreSQL database
-- 🚀 FastAPI REST API
-- 📖 Automatic Swagger API documentation
-- 🔐 AWS IAM role-based authentication
-- 🌐 AWS EC2 backend deployment
-- ⚡ Vercel frontend deployment
-- 🔒 Environment-based configuration
-- 🧩 Scalable application architecture
+The application is being developed with a production-oriented architecture focused on scalability, security, cloud infrastructure, and DevOps practices.
 
 ---
 
-# 🏗️ Architecture
+## 🚀 Project Overview
+
+MR Makhana consists of two primary applications:
+
+| Component | Technology |
+|---|---|
+| Frontend | Next.js |
+| UI | React + TypeScript |
+| Styling | Tailwind CSS |
+| UI Components | shadcn/ui |
+| Animations | Framer Motion |
+| Backend | FastAPI |
+| Language | Python |
+| ORM | SQLAlchemy |
+| Validation | Pydantic |
+| Database | PostgreSQL |
+| Object Storage | Amazon S3 |
+| AWS SDK | boto3 |
+| Backend Hosting | AWS EC2 |
+| Frontend Hosting | Vercel |
+| Cloud Authentication | AWS IAM Role |
+| API Documentation | Swagger / OpenAPI |
+
+---
+
+# ✨ Features
+
+## 🛍️ E-Commerce Storefront
+
+- Premium modern storefront
+- Responsive design
+- Desktop, tablet, and mobile support
+- Product listing
+- Product categories
+- Featured products
+- Product pricing
+- Compare-at / discount pricing
+- Stock quantity management
+- Product image support
+- Premium animations
+- Modern UI components
+- Mobile-friendly navigation
+
+---
+
+## ⚙️ Backend Features
+
+- FastAPI REST API
+- Product CRUD operations
+- Category management
+- PostgreSQL database integration
+- SQLAlchemy ORM
+- Pydantic request validation
+- Automatic Swagger documentation
+- OpenAPI specification
+- Health check endpoint
+- Environment-based configuration
+- Amazon S3 integration
+- Product image upload service
+- Unique S3 object naming
+- HTTP error handling
+- Database relationship support
+
+---
+
+## ☁️ AWS Features
+
+- AWS EC2 backend deployment
+- Amazon S3 product image storage
+- AWS IAM role-based authentication
+- boto3 AWS SDK integration
+- Secure EC2-to-S3 communication
+- No hard-coded AWS access keys
+- S3 bucket-based object storage
+- Cloud-ready application architecture
+
+---
+
+# 🏗️ System Architecture
 
 ```text
-                         ┌──────────────────┐
-                         │     Customer     │
-                         │    Web Browser   │
-                         └────────┬─────────┘
-                                  │
-                                  ▼
-                         ┌──────────────────┐
-                         │ Next.js Frontend │
-                         │     Vercel       │
-                         └────────┬─────────┘
-                                  │
-                              REST API
-                                  │
-                                  ▼
-                         ┌──────────────────┐
-                         │ FastAPI Backend  │
-                         │     AWS EC2      │
-                         └────────┬─────────┘
-                                  │
-                    ┌─────────────┴─────────────┐
-                    │                           │
-                    ▼                           ▼
-             ┌──────────────┐           ┌──────────────┐
-             │  PostgreSQL  │           │  Amazon S3   │
-             │   Database   │           │ Product Img. │
-             └──────────────┘           └──────────────┘
+                         ┌─────────────────────┐
+                         │      Customer       │
+                         │     Web Browser     │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │   Next.js Frontend  │
+                         │       Vercel        │
+                         └──────────┬──────────┘
+                                    │
+                              HTTPS / REST API
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │   FastAPI Backend   │
+                         │       AWS EC2       │
+                         └──────────┬──────────┘
+                                    │
+                    ┌───────────────┴───────────────┐
+                    │                               │
+                    ▼                               ▼
+          ┌──────────────────┐            ┌──────────────────┐
+          │    PostgreSQL    │            │    Amazon S3     │
+          │     Database     │            │  Product Images  │
+          └──────────────────┘            └──────────────────┘
+                                                    ▲
+                                                    │
+                                                 boto3
+                                                    │
+                                                    │
+                                          ┌──────────────────┐
+                                          │    AWS IAM Role  │
+                                          │  EC2 Permissions │
+                                          └──────────────────┘
+🔄 Product Image Architecture
+Product images are stored in Amazon S3 instead of storing the actual image files directly inside the application server.
+                    Customer / Admin
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ Next.js Frontend│
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ FastAPI Backend │
+                  └────────┬────────┘
+                           │
+                           ▼
+                        boto3
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │   Amazon S3     │
+                  │                 │
+                  │    products/    │
+                  │      image.jpg  │
+                  └────────┬────────┘
+                           │
+                           ▼
+                      Image URL
+                           │
+                           ▼
+                    PostgreSQL
+                    Product Record
 
+The image file is stored in S3, while the corresponding image URL/reference is stored with the product data.
+🔐 AWS IAM Security
+The backend uses an EC2 IAM Role to access AWS services.
+Example role:
+MR-Makhana-EC2-S3-Role
+
+The EC2 instance receives temporary AWS credentials automatically through the attached IAM role.
+FastAPI
+   │
+   ▼
+ boto3
+   │
+   ▼
+EC2 Instance
+   │
+   ▼
+IAM Role
+   │
+   ▼
+Amazon S3
+
+This approach avoids storing long-lived AWS access keys inside the application.
+The project does not require hard-coded:
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+
+The application can use the AWS credentials provided automatically to the EC2 instance through its IAM role.
+🛡️ Security Practices
+The project follows several security-focused practices:
+- IAM role-based AWS authentication
+- No hard-coded AWS credentials
+- Environment variables for configuration
+- .env excluded from Git
+- Database credentials stored outside source code
+- S3 permissions controlled through IAM
+- Pydantic request validation
+- FastAPI HTTP exception handling
+- Unique S3 object names
+- Separation of application code and secrets
+- AWS least-privilege permissions where applicable
 🛠️ Tech Stack
 Frontend
 - Next.js
@@ -74,26 +212,34 @@ Backend
 - FastAPI
 - Uvicorn
 - SQLAlchemy
-- PostgreSQL
 - Pydantic
 - boto3
 - python-multipart
-Cloud & DevOps
+Database
+- PostgreSQL
+Cloud & Infrastructure
 - AWS EC2
 - Amazon S3
 - AWS IAM
+- Vercel
+Development & Version Control
 - Git
 - GitHub
-- Vercel
+- pnpm
+- Python Virtual Environment
 📁 Project Structure
 Frontend
 mk-makhana/
 │
 ├── app/
+│
 ├── components/
 │   └── ui/
+│
 ├── lib/
+│
 ├── public/
+│
 ├── .gitignore
 ├── components.json
 ├── next.config.mjs
@@ -107,6 +253,7 @@ Backend
 mr-makhana-backend/
 │
 ├── app/
+│   │
 │   ├── database/
 │   │   └── connection.py
 │   │
@@ -129,7 +276,7 @@ mr-makhana-backend/
 └── .env
 
 🔌 REST API
-Products
+Products API
 Method	Endpoint	Description
 GET	/api/products/	Get all products
 POST	/api/products/	Create product
@@ -138,14 +285,14 @@ PUT	/api/products/{product_id}	Update product
 DELETE	/api/products/{product_id}	Delete product
 
 
-Categories
+Categories API
 Method	Endpoint	Description
 GET	/api/categories/	Get all categories
 POST	/api/categories/	Create category
 GET	/api/categories/{category_id}	Get category
 
 
-Health
+Health API
 GET /health
 
 Response:
@@ -154,7 +301,8 @@ Response:
 }
 
 📖 API Documentation
-FastAPI automatically provides interactive Swagger documentation.
+FastAPI automatically generates interactive API documentation.
+Swagger UI:
 http://YOUR_SERVER_IP:8000/docs
 
 OpenAPI specification:
@@ -167,139 +315,119 @@ Swagger allows developers to test:
 - DELETE requests
 - Request validation
 - API responses
+- HTTP status codes
 🐍 Backend Setup
-Clone the Repository
+1. Clone the Backend Repository
 git clone https://github.com/navnitkumar927/mr-makhana-backend.git
+
 cd mr-makhana-backend
 
-Create Virtual Environment
+2. Create Virtual Environment
 python3 -m venv venv
 
-Activate Virtual Environment
+3. Activate Virtual Environment
+Linux / macOS:
 source venv/bin/activate
 
-Install Dependencies
+4. Install Dependencies
 pip install -r requirements.txt
 
-Start FastAPI
+5. Configure Environment Variables
+Create:
+.env
+
+Example:
+DATABASE_URL=postgresql+psycopg2://USERNAME:PASSWORD@HOST:5432/DATABASE
+
+S3_BUCKET=YOUR_S3_BUCKET
+AWS_REGION=us-east-1
+
+Never commit .env to GitHub.
+
+6. Start FastAPI
 uvicorn app.main:app --host 0.0.0.0 --port 8000
 
 Development mode:
 uvicorn app.main:app --reload
 
+Backend:
+http://localhost:8000
+
+Swagger:
+http://localhost:8000/docs
+
 🖥️ Frontend Setup
-Clone Repository
+1. Clone Repository
 git clone https://github.com/navnitkumar927/mk-makhana.git
+
+2. Enter Project
 cd mk-makhana
 
-Install Dependencies
+3. Install Dependencies
 pnpm install
 
-Start Development Server
+4. Start Development Server
 pnpm dev
 
 Frontend:
 http://localhost:3000
 
 🗄️ PostgreSQL
-The backend uses PostgreSQL with SQLAlchemy.
-Current database structure:
+The backend uses PostgreSQL as the primary relational database.
+The application contains database models for:
 PostgreSQL
 │
 ├── categories
 │
 └── products
 
-Example environment configuration:
-DATABASE_URL=postgresql+psycopg2://USERNAME:PASSWORD@localhost:5432/DATABASE
+Example database configuration:
+DATABASE_URL=postgresql+psycopg2://USERNAME:PASSWORD@HOST:5432/DATABASE
 
+SQLAlchemy is used as the ORM layer between FastAPI and PostgreSQL.
 ☁️ Amazon S3
-Amazon S3 is used to store product images.
-Example:
-S3 Bucket
+Amazon S3 is used for product image storage.
+Example bucket structure:
+mr-makhana-product-images
 │
 └── products/
+    │
     ├── image-1.jpg
     ├── image-2.jpg
     ├── image-3.png
-    └── ...
+    └── image-4.webp
 
-The backend uses boto3 to upload and manage objects in S3.
+The backend uses boto3 to communicate with S3.
 Example configuration:
 S3_BUCKET=YOUR_S3_BUCKET
 AWS_REGION=us-east-1
 
-🔐 AWS IAM Security
-The backend runs on AWS EC2 and uses an IAM Role to access Amazon S3.
-Example role:
-MR-Makhana-EC2-S3-Role
+🧪 S3 Connection Test
+Verify AWS identity:
+aws sts get-caller-identity
 
-Architecture:
-FastAPI
-   │
-   ▼
-boto3
-   │
-   ▼
-EC2 IAM Role
-   │
-   ▼
-Amazon S3
+Test the S3 bucket:
+aws s3 ls s3://YOUR_S3_BUCKET
 
-This avoids storing long-lived AWS access keys inside the application.
-The application does NOT require:
-AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY
+Test the product image directory:
+aws s3 ls s3://YOUR_S3_BUCKET/products/
 
-to be hard-coded into the project.
-🔒 Security Practices
-The project follows these security practices:
-- AWS IAM role-based authentication
-- No hard-coded AWS credentials
-- Environment variables for configuration
-- .env excluded from Git
-- Database credentials stored in environment variables
-- S3 access controlled through IAM
-- Pydantic request validation
-- FastAPI HTTP exception handling
-- Unique S3 object names
-- Separation of application code and secrets
-🖼️ Product Image Flow
-User
- │
- ▼
-Frontend
- │
- ▼
-FastAPI Upload API
- │
- ▼
-boto3
- │
- ▼
-Amazon S3
- │
- ▼
-Image URL
- │
- ▼
-PostgreSQL
- │
- ▼
-Product Record
-
-The actual image file is stored in Amazon S3 while the database stores the corresponding image reference.
-🧪 API Testing
-Check backend health:
+🧪 Backend Testing
+Health Check
 curl http://localhost:8000/health
 
-Get products:
+Expected response:
+{
+  "status": "ok"
+}
+
+Get Products
 curl http://localhost:8000/api/products/
 
-Get categories:
+Get Categories
 curl http://localhost:8000/api/categories/
 
-Create a category:
+Create Category
 curl -X POST http://localhost:8000/api/categories/ \
 -H "Content-Type: application/json" \
 -d '{
@@ -310,32 +438,48 @@ curl -X POST http://localhost:8000/api/categories/ \
   "is_active": true
 }'
 
-🚀 Deployment
-The project is designed for cloud deployment using AWS and Vercel.
-                   INTERNET
-                       │
-                       ▼
-                ┌─────────────┐
-                │   Vercel    │
-                │   Next.js   │
-                └──────┬──────┘
-                       │
-                       │ REST API
-                       ▼
-                ┌─────────────┐
-                │   AWS EC2   │
-                │   FastAPI   │
-                └──────┬──────┘
-                       │
-              ┌────────┴────────┐
-              │                 │
-              ▼                 ▼
-       ┌────────────┐    ┌────────────┐
-       │ PostgreSQL │    │ Amazon S3  │
-       │  Database  │    │   Images   │
-       └────────────┘    └────────────┘
+📦 Example Product
+Example product payload:
+{
+  "name": "Classic Salted Makhana",
+  "slug": "classic-salted-makhana",
+  "description": "Crunchy roasted makhana with a delicious light salted flavour.",
+  "price": 199,
+  "compare_at_price": 249,
+  "image_url": "https://example.com/classic-makhana.jpg",
+  "stock_quantity": 100,
+  "is_active": true,
+  "is_featured": true,
+  "category_id": 1
+}
 
-📊 Project Status
+🚀 Deployment Architecture
+The project is designed for cloud deployment using Vercel and AWS.
+                         INTERNET
+                             │
+                             ▼
+                    ┌────────────────┐
+                    │     Vercel     │
+                    │   Next.js App  │
+                    └───────┬────────┘
+                            │
+                         REST API
+                            │
+                            ▼
+                    ┌────────────────┐
+                    │    AWS EC2     │
+                    │ FastAPI/Uvicorn│
+                    └───────┬────────┘
+                            │
+                  ┌─────────┴─────────┐
+                  │                   │
+                  ▼                   ▼
+          ┌──────────────┐    ┌──────────────┐
+          │  PostgreSQL  │    │  Amazon S3   │
+          │   Database   │    │ Product Image│
+          └──────────────┘    └──────────────┘
+
+📊 Current Project Status
 Component	Status
 Premium Storefront	✅
 Responsive UI	✅
@@ -355,6 +499,7 @@ Product Image Upload API	🚧
 Frontend API Integration	🚧
 Authentication	🔜
 Shopping Cart	🔜
+Wishlist	🔜
 Orders	🔜
 Payment Gateway	🔜
 Admin Dashboard	🔜
@@ -365,12 +510,15 @@ Monitoring	🔜
 🗺️ Roadmap
 Phase 1 — Core Platform
 - [x] Premium storefront
+- [x] Responsive frontend
 - [x] Product API
 - [x] Category API
 - [x] PostgreSQL integration
+- [x] SQLAlchemy integration
 - [x] AWS EC2 deployment
-- [x] S3 integration
+- [x] Amazon S3 integration
 - [x] IAM role configuration
+- [x] S3 upload service
 Phase 2 — E-Commerce
 - [ ] User authentication
 - [ ] User accounts
@@ -380,16 +528,19 @@ Phase 2 — E-Commerce
 - [ ] Orders
 - [ ] Payment gateway
 - [ ] Order tracking
-Phase 3 — Admin
+- [ ] Email notifications
+Phase 3 — Admin Platform
 - [ ] Admin authentication
 - [ ] Admin dashboard
 - [ ] Product management
 - [ ] Category management
 - [ ] Inventory management
 - [ ] Order management
-- [ ] Image management
-Phase 4 — DevOps
+- [ ] Product image management
+- [ ] Analytics dashboard
+Phase 4 — DevOps & Production
 - [ ] Docker
+- [ ] Docker Compose
 - [ ] GitHub Actions
 - [ ] Automated CI/CD
 - [ ] Security scanning
@@ -399,29 +550,82 @@ Phase 4 — DevOps
 - [ ] HTTPS
 - [ ] Production domain
 - [ ] Automated backups
+- [ ] CloudWatch monitoring
 🎯 Project Goals
-MR Makhana is being developed as a production-oriented e-commerce platform with an emphasis on:
-- Modern frontend engineering
-- REST API development
+MR Makhana is being developed as a production-oriented e-commerce platform with a strong focus on:
+- Modern frontend development
+- REST API architecture
 - Cloud infrastructure
 - AWS services
 - Secure IAM architecture
 - Object storage
 - Database design
+- API development
 - DevOps automation
-- Scalable application architecture
-- Production deployment
-👨‍💻 Author
-Navnit Kumar
-DevOps Engineer | Cloud & DevSecOps Enthusiast
-GitHub:
-https://github.com/navnitkumar927
-🔗 Repositories
+- Secure deployments
+- Scalable architecture
+- Production-ready engineering
+🔒 Environment Variables
+Example backend .env:
+DATABASE_URL=postgresql+psycopg2://USERNAME:PASSWORD@HOST:5432/DATABASE
+
+S3_BUCKET=YOUR_S3_BUCKET
+AWS_REGION=us-east-1
+
+The .env file should remain local and must not be committed to GitHub.
+Recommended .gitignore entries:
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+🧹 Useful Backend Commands
+Activate environment:
+source venv/bin/activate
+
+Check Python:
+python --version
+
+Check installed packages:
+pip freeze
+
+Compile Python files:
+python -m py_compile app/main.py
+
+Start server:
+uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+Check running Uvicorn process:
+ps aux | grep uvicorn
+
+Check API:
+curl http://localhost:8000/health
+
+🌐 Repository
 Frontend
 https://github.com/navnitkumar927/mk-makhana
 Backend
 https://github.com/navnitkumar927/mr-makhana-backend
+👨‍💻 Author
+Navnit Kumar
+DevOps Engineer | Cloud & DevSecOps Enthusiast
+Focused on:
+- AWS
+- Docker
+- Kubernetes
+- Terraform
+- CI/CD
+- Linux
+- Cloud Security
+- DevSecOps
+- Infrastructure Automation
+GitHub:
+https://github.com/navnitkumar927
 📄 License
 This project is currently private and intended for development, learning, portfolio, and demonstration purposes.
 🥜 MR Makhana
-Premium Makhana • Next.js • FastAPI • PostgreSQL • AWS EC2 • Amazon S3 • IAM • Cloud Architecture
+Premium Makhana • Next.js • FastAPI • PostgreSQL • AWS EC2 • Amazon S3 • IAM
+Built with modern web technologies and cloud infrastructure.
+
+**Bas itna hi:** GitHub repo → `README.md` → Edit → purana content delete → **upar wala pura content paste → Commit changes**.
